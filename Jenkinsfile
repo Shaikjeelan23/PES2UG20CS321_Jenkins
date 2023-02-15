@@ -1,21 +1,26 @@
-node {
+pipeline{
+  agent any
+  stages{
   stage('Build') {
-    sh 'g++ -o PES2UG20CS321 PES2UG20CS321.cpp'
+    steps{
+      sh 'g++ -o PES2UG20CS321 PES2UG20CS321.cpp'
+    }
   }
 
   stage('Test') {
-    sh './PES2UG20CS321'
+    steps{
+       sh './PES2UG20CS321'
+    }
   }
 
   stage('Deploy') {
-    // Add your deploy step here
+//steps here
+  }
   }
 
   post {
-    always {
-      if (currentBuild.result == "FAILURE") {
+    failure {
         echo 'Pipeline Failed'
-      }
     }
   }
 }
